@@ -5,33 +5,32 @@ from selenium.webdriver.support import expected_conditions as EC
 
 import info
 
+# make sure this path is correct
+PATH = "C:\Program Files (x86)\chromedriver.exe"
+
 driver = webdriver.Chrome(PATH)
 
-RTX3070_LINK1 = "https://www.bestbuy.com/site/nvidia-geforce-rtx-3070-8gb-gddr6-pci-express-4-0-graphics-card-dark-platinum-and-black/6429442.p?skuId=6429442"
-RTX3070_LINK2 = "https://www.bestbuy.com/site/gigabyte-geforce-rtx-3070-8g-gddr6-pci-express-4-0-graphics-card-black/6437912.p?skuId=6437912"
-RTX3060TI_LINK = "https://www.bestbuy.com/site/nvidia-geforce-rtx-3060-ti-8gb-gddr6-pci-express-4-0-graphics-card-steel-and-black/6439402.p?skuId=6439402"
-RTX3080_LINK = "https://www.bestbuy.com/site/nvidia-geforce-rtx-3080-10gb-gddr6x-pci-express-4-0-graphics-card-titanium-and-black/6429440.p?skuId=6429440"
+RTX3070LINK1 = "https://www.bestbuy.com/site/nvidia-geforce-rtx-3070-8gb-gddr6-pci-express-4-0-graphics-card-dark-platinum-and-black/6429442.p?skuId=6429442"
+RTX3070LINK2 = "https://www.bestbuy.com/site/gigabyte-geforce-rtx-3070-8g-gddr6-pci-express-4-0-graphics-card-black/6437912.p?skuId=6437912"
+XBOXONETEST = "https://www.bestbuy.com/site/microsoft-xbox-one-s-1tb-console-bundle-white/6415222.p?skuId=6415222"
 
-# Must use one link at a time
+driver.get(RTX3070LINK1)
 
-# Choose from one of the links above to search for (also needs to match link below)
-driver.get (RTX3070_LINK1)
-
-isComplete = false
+isComplete = False
 
 while not isComplete:
-    # find add to cart
-  try:
+    # find add to cart button
+    try:
         atcBtn = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, ".add-to-cart-button"))
         )
-  except:
+    except:
         driver.refresh()
         continue
 
     print("Add to cart button found")
 
-  try:
+    try:
         # add to cart
         atcBtn.click()
 
@@ -78,7 +77,7 @@ while not isComplete:
         isComplete = True
     except:
         # make sure this link is the same as the link passed to driver.get() before looping
-        driver.get(RTX3070_LINK1)
+        driver.get(RTX3070LINK1)
         print("Error - restarting bot")
         continue
 
